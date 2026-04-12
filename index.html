@@ -2,22 +2,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#ffffff;
-  --bg2:#f7f7f5;
-  --bg3:#f0efeb;
-  --text1:#1a1a1a;
-  --text2:#6b6b6b;
-  --text3:#999990;
-  --border1:rgba(0,0,0,0.25);
-  --border2:rgba(0,0,0,0.15);
-  --border3:rgba(0,0,0,0.08);
-  --radius:8px;
-  --radius-lg:12px;
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0efeb;
+  --text1:#1a1a1a;--text2:#6b6b6b;--text3:#999990;
+  --border1:rgba(0,0,0,0.25);--border2:rgba(0,0,0,0.15);--border3:rgba(0,0,0,0.08);
+  --radius:8px;--radius-lg:12px;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg)}
 .wrap{padding:1.5rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--border1)}
-.toolbar h2{font-size:18px;font-weight:500;color:var(--text1);flex:1;min-width:160px}
+.toolbar-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:160px}
+.toolbar-title{font-size:20px;font-weight:500;color:var(--text1)}
+.toolbar-sub{font-size:14px;color:var(--text3)}
 .search-box{padding:6px 12px;border:1px solid var(--border1);border-radius:var(--radius);font-size:14px;background:var(--bg);color:var(--text1);width:160px}
 .filter-btn{padding:5px 14px;border:1px solid var(--border1);border-radius:var(--radius);font-size:13px;cursor:pointer;background:var(--bg2);color:var(--text2)}
 .filter-btn.active{background:#185FA5;color:#fff;border-color:#185FA5}
@@ -29,7 +24,6 @@ table{border-collapse:collapse;font-size:13px;width:max-content}
 th,td{border-bottom:1px solid var(--border3)}
 th{background:var(--bg);color:var(--text2);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
 th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--bg);border-right:2px solid var(--border1)}
-th.sep-left{border-left:2px solid var(--border1)}
 td{padding:3px 4px;text-align:center;background:var(--bg)}
 td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--bg);z-index:1;border-right:2px solid var(--border1);font-size:13px;color:var(--text1)}
 tr:hover td{background:var(--bg2)!important}
@@ -64,9 +58,12 @@ th.sat,td.sat{background:#F5F8FE}
 </style>
 
 <div class="wrap">
-<h2 class="sr-only">정겨운뜰안 2026년 3월 근무표</h2>
+<h2 class="sr-only">정겨운뜰안 2026년 4월 근무표</h2>
 <div class="toolbar">
-  <h2>정겨운뜰안 2026년 3월 근무표</h2>
+  <div class="toolbar-left">
+    <div class="toolbar-title">정겨운뜰안 근무표</div>
+    <div class="toolbar-sub">2026년 4월</div>
+  </div>
   <input class="search-box" type="text" placeholder="직원 검색..." id="search" oninput="applyFilter()">
   <button class="filter-btn active" onclick="filterDept('all',this)">전체</button>
   <button class="filter-btn" onclick="filterDept('시설/사무',this)">시설/사무</button>
@@ -121,43 +118,45 @@ function sickH(c){return c==='병'?8:0}
 function condH(c){return(c==='조의'||c==='결혼')?8:0}
 function wdayVal(c){return{D:1,N:1,E:1,S:1,S4:1,F:1,HD:0.5,HE:0.5}[c]||0}
 
+const NDAYS=30;
 const employees=[
-  {name:'박초하',dept:'시설/사무',s:['HD','D','D','D','D','HE','D','D','D','HD','D','HE','D',null,'HD','D',null,'HE','HD','D','HD','D',null,'연',null,null,'D','D','HD','HE','연']},
-  {name:'배인석',dept:'시설/사무',s:['D',null,'D','D','D',null,'D','HD',null,'연','연','D','D','D',null,'D','D',null,null,'D','D','D','D','D','D','D',null,'D','D',null,'D']},
-  {name:'배찬미',dept:'시설/사무',s:['HE','HE','D','D','D','HD','D','HE','D','D','E','HD','D',null,null,'D','D',null,'D','D','D','HE','D','D',null,'D','D',null,null,null,'D']},
-  {name:'강숙희',dept:'시설/사무',s:['HE','D','D',null,'HD','D',null,null,'HE','D','D','HE','D','HD',null,'D','D','D','연',null,'D','D',null,'D','HE','D','D','D',null,'HD','연']},
-  {name:'박정진',dept:'의료',s:[null,null,'D','D','D','D',null,null,'D','D','D','D','D','D',null,null,'D','D','D',null,'연',null,'D','D','D','D','D','D',null,'D','D']},
-  {name:'이승아',dept:'의료',s:[null,'D','D','D','D','D','D',null,null,'D','D','연','D','D','D',null,'D','D',null,'D','D','D','D','D','D',null,'조의','조의','D',null,null]},
-  {name:'박경미',dept:'의료',s:['D',null,null,'D','D','D',null,'D','D','D','연','D','D','D','D','HE','D','HD','D',null,null,'D','D','D','D','D','D','D',null,'D','D']},
-  {name:'김삼영',dept:'의료',s:['F',null,'F','연','F','F','D','S4','S4',null,'D','S4','D','F','S4',null,'D','F',null,'F','D','F',null,'S4','S4','F',null,'D','D','F',null]},
-  {name:'신명숙',dept:'의료',s:[null,'F','연','F','F',null,'S4','D','F',null,'S4','D','D','D','D','F','D','D','F',null,'F',null,null,'D','D','D','D','S4','S4',null,'F']},
-  {name:'박란례',dept:'본관',s:['D',null,'D','F','D','D','D',null,'D',null,'D','D','D','D',null,'D','D','D','D','D','D',null,'D','D','D','D','D','D',null,'D','연']},
-  {name:'모선',dept:'본관',s:['D','N',null,'N','N',null,'N','D','N','N',null,'N','N','N','D','D',null,null,'N','N','N','N','D',null,'N','N','N','D','D',null,null]},
-  {name:'김영희',dept:'본관',s:[null,'D','D','N','D','D','D','N','N','N',null,'N','N','N',null,'D','N',null,'N',null,'N','N',null,null,'N','N','조의','조의','D',null,null]},
-  {name:'주은순',dept:'본관',s:['D','D','D',null,'D','D','D',null,null,'N',null,null,'N','N','D','D','D','D','S',null,'연','N','연','N','N',null,'D','D',null,'D','D']},
-  {name:'김영순',dept:'본관',s:[null,null,'N',null,'D',null,'D',null,'병','병','병','병','병','병','병','N',null,'N','S','N',null,'D','N','N',null,null,'N','D','N','연',null]},
-  {name:'차순옥',dept:'본관',s:['N',null,'N',null,null,'S',null,null,null,null,'N',null,null,'N',null,null,'D',null,'연','N','N','D',null,'D','D',null,null,'N','N','D','N']},
-  {name:'이정순',dept:'신관2층',s:[null,'D',null,'D',null,'N',null,'D','D',null,'D','N','연','D','D',null,'D','N','N',null,'D','D','N',null,'D','D','D',null,'N','D',null]},
-  {name:'조도현',dept:'신관2층',s:['N',null,null,'D','N','N',null,null,null,'연','D','D','D','N','N',null,null,'D',null,'N',null,'N','D',null,null,'D','N','N',null,null,null]},
-  {name:'박정순',dept:'신관2층',s:['N','N',null,'N',null,'D','D','D','N',null,'D','N',null,null,'D','D','N',null,null,'D','D','D','D',null,'연','N',null,null,null,'D','D']},
-  {name:'노종윤',dept:'신관2층',s:['D',null,'N',null,'N',null,null,null,'D','연',null,'D','N','N',null,'D',null,null,'D','N','조의','조의','조의','조의','조의','조의','N','N',null,null,'D']},
-  {name:'강진경',dept:'신관2층',s:[null,'D',null,'D','연','연','D',null,'D','D','D','D',null,'D','D',null,null,'D','N','N','연',null,'N','N',null,'N','N',null,'D',null,null]},
-  {name:'이선자',dept:'신관2층',s:[null,'N',null,null,'D','D',null,'N',null,'D','N',null,'D','D','D',null,'N',null,null,'D','D','D',null,'D','D',null,'N','연','N','N',null]},
-  {name:'김덕임',dept:'신관2층',s:[null,null,'D',null,'D','N','N',null,null,'D','N',null,null,'D','N',null,'D',null,null,'D','N','D',null,'D','D','D',null,'연','D','N','N']},
-  {name:'플로란',dept:'신관2층',s:[null,null,null,'D','D','D','D',null,null,null,null,null,'D','D',null,'D',null,null,'D','D','D',null,null,'D','D','D','D',null,'D',null,'N']},
-  {name:'신화숙',dept:'신관2층',s:['D','D',null,null,'D',null,null,'D',null,'N',null,'D','D','D','N','N','D','D','D','D','D','N','N',null,'N','N','N','D','N',null,null]},
-  {name:'조선자',dept:'신관1층',s:[null,null,'D','D','N',null,null,'N',null,'D',null,null,'N','N',null,null,'D','연','N','N','N','N','N','N','N','D','D','N',null,null,'D']},
-  {name:'박선영',dept:'신관1층',s:['D','N',null,null,null,'D',null,'D',null,'N','N','D','D','D',null,'N','N','D','D','D',null,'연','N',null,null,null,'D','D','N',null,null]},
-  {name:'김윤옥',dept:'신관1층',s:['N',null,'D',null,null,'N',null,'N',null,null,'D','N','D','N','N',null,'D','D','N','D','N','D','N','연',null,'D','D',null,'N','N','D']},
-  {name:'김양자',dept:'신관1층',s:['D',null,'N',null,null,'N','D','D','연','연','N','N','D',null,'D','D','N',null,'N','N','S',null,null,'N',null,'N','N','S','D',null,null]},
-  {name:'박정래',dept:'신관1층',s:[null,'N',null,'D',null,'D','N',null,'D','N',null,'D','N','N','D','N','연','D',null,'D','N','N',null,null,'D',null,null,'D','D',null,'N']},
-  {name:'최상덕',dept:'신관1층',s:[null,null,'N','N',null,'연',null,'D','연','연',null,'N',null,'D','D','D','N','N','N','N','N',null,'D','N','N','N','N',null,'N',null,'N']},
-  {name:'김미자',dept:'신관1층',s:[null,'D',null,'N',null,'D','N',null,'D','N',null,'D','D','연','D',null,null,'N',null,'D','D','N',null,'D','D',null,null,'D','D',null,'N']},
+  {name:'박초하',dept:'시설/사무',s:['D','N','D','D','D','HE','HE','연','연','D',null,'D','D','D','연','D','D',null,'D','D','HD','D','HE','D',null,'HD',null,'D','HE','D']},
+  {name:'배인석',dept:'시설/사무',s:['HD','D','D',null,'HD','D',null,'D','D',null,'D','D','D','HD','D','연','연',null,'D','D',null,'D',null,'HE','D','D','연','D','D',null]},
+  {name:'배찬미',dept:'시설/사무',s:['D','D',null,'D','D',null,null,'D','D','D','D',null,'D','D','D',null,'HE','D','HE',null,'D','D','D','D','D',null,'D','D','D','D']},
+  {name:'최희망',dept:'시설/사무',s:['D','D','D','D',null,'D','D','D',null,'D','D','D','D',null,'D','D','D',null,null,'D','D',null,'D','D',null,'D','D',null,'D','D']},
+  {name:'박정진',dept:'의료',s:['D','D','D',null,null,'D','D','D','D','D',null,null,'D','D','D','D','연',null,null,'D','D','D','D','D',null,null,'D','D','D','D']},
+  {name:'이승아',dept:'의료',s:['D','D','D',null,null,'D','D','D','연','D','D','D','D','D','D',null,'D','D',null,null,'D','HD','D','D',null,'D','D','D',null,'D']},
+  {name:'박경미',dept:'의료',s:['D',null,'D','D',null,'연','D','D','D','D',null,null,'D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null,'D','D','D',null]},
+  {name:'신명숙',dept:'의료',s:['F','F','F','F','S4','S4',null,'F',null,'F','S4',null,'S4','F',null,null,'F','F','S4','S4','F','연','S4','F','S4','S4',null,'F',null,'S4']},
+  {name:'이인자',dept:'의료',s:[null,null,null,'D','D','D','F','F','F',null,'D','F','D',null,'D','F',null,'F','D','D',null,'F','F',null,'D','D','F',null,'F','D']},
+  {name:'박란례',dept:'본관',s:['D','D','D',null,null,'D','D',null,'D','D','D',null,'D','D','연','연','D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null]},
+  {name:'모선',dept:'본관',s:[null,'N',null,'D','D','N',null,null,'N',null,'D','D','N',null,null,'N',null,null,'D',null,null,null,'N',null,'D','D','연','연',null,'N']},
+  {name:'김영희',dept:'본관',s:['D','연','연','D','N','N',null,'N',null,'D',null,'N','N','N',null,'D','N','N',null,null,'D','N',null,'D','D',null,'N',null,'D','D']},
+  {name:'주은순',dept:'본관',s:['D','D','D','연',null,'D','D',null,'D','D',null,'D','D',null,'D','D',null,'D','D','D',null,'N','D','D',null,null,'N','N','D','D']},
+  {name:'김영순',dept:'본관',s:['N',null,'D',null,'D','D','N',null,null,'N',null,null,'D','D',null,'연','연',null,null,'N',null,'D','D','D',null,'N',null,'D','N',null]},
+  {name:'차순옥',dept:'본관',s:[null,'D','N','N',null,null,'D','D','D','연','N',null,'D','D','N',null,'D',null,'D',null,'N',null,'S','N',null,null,'S','N',null,null]},
+  {name:'이정순',dept:'신관2층',s:['N',null,null,'D',null,'D','D','D',null,'N','N',null,null,'D','D',null,'D','D','N',null,'D','D',null,'N',null,'D','D',null,'D','연']},
+  {name:'조도현',dept:'신관2층',s:['D',null,'D',null,'N',null,'연','N',null,'D','D',null,'N',null,'D','D','D','N',null,'D','D','N',null,null,null,'D','N','N',null,null]},
+  {name:'박정순',dept:'신관2층',s:[null,'연','연','D','D',null,'D',null,'N',null,null,'D','D','N','N',null,'D','D','N','N','D','D','N',null,'HD',null,null,'D','D','D']},
+  {name:'노종윤',dept:'신관2층',s:[null,'N','N',null,'D','N','N','N',null,'HD',null,null,null,'연','연','D','D','N',null,null,'D','D',null,'D',null,'D','N',null,'N','N']},
+  {name:'강진경',dept:'신관2층',s:['D','D','D','N',null,'D',null,'D',null,'D','D','D','D',null,'D',null,'N','연',null,'D','D',null,'D','D','D','D',null,'연','연','D']},
+  {name:'이선자',dept:'신관2층',s:['D',null,'N',null,'D','D','N',null,'D',null,'D','N',null,'D','D','D','연','연',null,'D','N',null,'D',null,null,'N','N','D','D',null]},
+  {name:'김덕임',dept:'신관2층',s:[null,'D',null,'D','N',null,null,'D','D',null,'D',null,'N',null,'N',null,'D','연','D','N',null,'연','연','N',null,null,'D',null,'D',null]},
+  {name:'플로란',dept:'신관2층',s:[null,'D',null,'N',null,null,'D','D','연','연',null,'S',null,null,'N',null,'N','N','S','D',null,'D','D',null,'N',null,null,null,'N',null]},
+  {name:'신화숙',dept:'신관2층',s:['N','N','D','D',null,null,'D',null,'D','D','N',null,null,'D','N','N',null,null,'D','연',null,'N',null,'D','D',null,'D','N',null,'D']},
+  {name:'조선자',dept:'신관1층',s:['D',null,'HD',null,'N',null,null,'D','D','D','N',null,'D','D','N',null,'D','N',null,null,'D','N',null,null,'D',null,'S','N',null,'N']},
+  {name:'박선영',dept:'신관1층',s:['D','N',null,'D','D','연',null,null,'S','N','S','D','N',null,'D',null,null,'D','N','N',null,'D',null,'N',null,'D','N',null,null,'D']},
+  {name:'김윤옥',dept:'신관1층',s:[null,'D','D',null,null,'N',null,'N','N','D',null,'N',null,'D','D',null,'D','N',null,'D','D','연','연','D','D','N','N',null,'D','N']},
+  {name:'김양자',dept:'신관1층',s:[null,'N',null,'D','S',null,'N',null,'N',null,'D','S','N','N','N','N','D','D','S',null,'N',null,'N',null,'S','S','연','연',null,null]},
+  {name:'박정래',dept:'신관1층',s:['N',null,'N',null,null,'D','D',null,'D','N','N','S','N','연','연','D','D',null,'S','N',null,null,'D','D',null,'S','S','S',null,null]},
+  {name:'최상덕',dept:'신관1층',s:[null,'D',null,'D',null,'N',null,'D','N',null,'N','N',null,'N',null,'D','연','D','N','N',null,'N','N','N',null,'D',null,null,'D','D']},
+  {name:'김미자',dept:'신관1층',s:[null,null,'D','N','N','S','D','N','N','D',null,'D',null,'연','연','N','N',null,'D','D','N',null,'D','D',null,null,null,'S','N',null]},
+  {name:'신요양',dept:'신관1층',s:[null,null,null,null,null,null,null,null,null,null,null,'D',null,'D','D','D',null,'D','D','D','D','D','D',null,null,null,'D','D','D','D']},
 ];
 
 const schedules=employees.map(e=>[...e.s]);
 const juhyuVals=employees.map(()=>4);
-const weekdays=[6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1];
+const weekdays=[2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3];
 const WD=['일','월','화','수','목','금','토'];
 let currentDept='all';
 let activePopup=null;
@@ -180,24 +179,24 @@ function calcStats(gi){
 
 function buildTable(){
   const TIME_COLS=['주간','야간','연차','병가','경조사','총시간','근무일수','주휴수당'];
-  let r1='<tr>';
-  r1+=`<th class="col-name">직원</th>`;
-  for(let d=1;d<=31;d++){
+  let r='<tr>';
+  r+=`<th class="col-name">직원</th>`;
+  for(let d=1;d<=NDAYS;d++){
     const wd=weekdays[d-1];
     const cls=wd===0?'sun':wd===6?'sat':'';
-    r1+=`<th class="${cls}" style="min-width:32px;line-height:1.3">${d}<br><span style="font-size:10px;font-weight:400;color:#999">${WD[wd]}</span></th>`;
+    r+=`<th class="${cls}" style="min-width:32px;line-height:1.3">${d}<br><span style="font-size:10px;font-weight:400;color:#999">${WD[wd]}</span></th>`;
   }
   CODES.forEach((c,i)=>{
     const col=CNT_COLORS[c]||'#6b6b6b';
     const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
-    r1+=`<th style="font-size:12px;color:${col};min-width:32px;${bdr}">${c}</th>`;
+    r+=`<th style="font-size:12px;color:${col};min-width:32px;${bdr}">${c}</th>`;
   });
   TIME_COLS.forEach((label,i)=>{
     const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
-    r1+=`<th style="font-size:12px;min-width:${label==='주휴수당'?52:46}px;${bdr}">${label}</th>`;
+    r+=`<th style="font-size:12px;min-width:${label==='주휴수당'?52:46}px;${bdr}">${label}</th>`;
   });
-  r1+='</tr>';
-  document.getElementById('thead').innerHTML=r1;
+  r+='</tr>';
+  document.getElementById('thead').innerHTML=r;
 
   const depts=['시설/사무','의료','본관','신관2층','신관1층'];
   let body='';
@@ -234,13 +233,9 @@ function buildTable(){
 
 function refreshRow(gi){
   const st=calcStats(gi);
-  CODES.forEach(c=>{
-    const el=document.getElementById(`cnt-${gi}-${c}`);
-    if(el)el.textContent=st.cnt[c]||'';
-  });
+  CODES.forEach(c=>{const el=document.getElementById(`cnt-${gi}-${c}`);if(el)el.textContent=st.cnt[c]||'';});
   [st.dh,st.nh,st.ah,st.sh,st.ch,st.total,st.wd].forEach((v,i)=>{
-    const el=document.getElementById(`th-${gi}-${i}`);
-    if(el)el.textContent=fmtNum(v);
+    const el=document.getElementById(`th-${gi}-${i}`);if(el)el.textContent=fmtNum(v);
   });
 }
 
@@ -251,13 +246,10 @@ function togglePopup(e,gi,di){
   closePopup();
   const cell=e.currentTarget;
   const wrap=document.getElementById('tableWrap');
-  const cr=cell.getBoundingClientRect();
-  const wr=wrap.getBoundingClientRect();
-  const top=cr.bottom-wr.top+wrap.scrollTop+4;
-  const left=cr.left-wr.left+wrap.scrollLeft;
+  const cr=cell.getBoundingClientRect(),wr=wrap.getBoundingClientRect();
   const popup=document.createElement('div');
   popup.className='popup';
-  popup.style.cssText=`position:absolute;top:${top}px;left:${left}px`;
+  popup.style.cssText=`position:absolute;top:${cr.bottom-wr.top+wrap.scrollTop+4}px;left:${cr.left-wr.left+wrap.scrollLeft}px`;
   CODES.forEach(code=>{
     const c=CODE_COLORS[code];
     const opt=document.createElement('div');
@@ -272,13 +264,10 @@ function togglePopup(e,gi,di){
   clr.onclick=ev=>{ev.stopPropagation();applyCode(gi,di,null);closePopup();};
   popup.appendChild(clr);
   wrap.appendChild(popup);
-  activePopup=popup;
-  activePopupKey=key;
+  activePopup=popup;activePopupKey=key;
 }
 
-function closePopup(){
-  if(activePopup){activePopup.remove();activePopup=null;activePopupKey=null;}
-}
+function closePopup(){if(activePopup){activePopup.remove();activePopup=null;activePopupKey=null;}}
 
 function applyCode(gi,di,code){
   schedules[gi][di]=code;
@@ -296,16 +285,12 @@ function filterDept(dept,btn){
 function applyFilter(){
   const q=document.getElementById('search').value.trim();
   document.querySelectorAll('#tbody tr').forEach(r=>{
-    if(r.classList.contains('section-header')){
-      r.style.display=(currentDept==='all'||currentDept===r.dataset.dept)?'':'none';return;
-    }
+    if(r.classList.contains('section-header')){r.style.display=(currentDept==='all'||currentDept===r.dataset.dept)?'':'none';return;}
     const ok=(!q||r.dataset.name.includes(q))&&(currentDept==='all'||currentDept===r.dataset.dept);
     r.style.display=ok?'':'none';
   });
 }
 
-document.addEventListener('click',e=>{
-  if(activePopup&&!activePopup.contains(e.target))closePopup();
-});
+document.addEventListener('click',e=>{if(activePopup&&!activePopup.contains(e.target))closePopup();});
 buildTable();
 </script>
