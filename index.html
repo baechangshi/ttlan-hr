@@ -1,35 +1,55 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정겨운뜰안 근무표</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0efeb;
   --text1:#1a1a1a;--text2:#6b6b6b;--text3:#999990;
   --border1:rgba(0,0,0,0.25);--border2:rgba(0,0,0,0.15);--border3:rgba(0,0,0,0.08);
-  --radius:8px;--radius-lg:12px;
+  --radius:8px;--radius-lg:12px;--blue:#185FA5;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg)}
-.wrap{padding:1.5rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--border1)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text1)}
+
+/* ── 공통 레이아웃 ── */
+.page{padding:1.5rem}
+.page-header{display:flex;align-items:flex-end;gap:16px;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--border1)}
+.page-title{font-size:20px;font-weight:500;color:var(--text1)}
+.page-sub{font-size:14px;color:var(--text3);margin-bottom:2px}
+.page-month{font-size:14px;color:var(--text3);margin-bottom:3px}
+
+/* ── 탭 ── */
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:1.5px solid var(--border2)}
+.tab-btn{padding:8px 24px;font-size:14px;cursor:pointer;border:1px solid transparent;border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;color:var(--text2);background:transparent;margin-bottom:-1.5px;font-family:inherit}
+.tab-btn.active{background:var(--bg);border-color:var(--border2);border-bottom-color:var(--bg);color:var(--text1);font-weight:500}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── 근무표 ── */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem}
 .toolbar-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:160px}
-.toolbar-title{font-size:20px;font-weight:500;color:var(--text1)}
-.toolbar-sub{font-size:14px;color:var(--text3)}
+.toolbar-title{font-size:18px;font-weight:500;color:var(--text1)}
+.toolbar-sub{font-size:13px;color:var(--text3)}
 .search-box{padding:6px 12px;border:1px solid var(--border1);border-radius:var(--radius);font-size:14px;background:var(--bg);color:var(--text1);width:160px}
 .filter-btn{padding:5px 14px;border:1px solid var(--border1);border-radius:var(--radius);font-size:13px;cursor:pointer;background:var(--bg2);color:var(--text2)}
-.filter-btn.active{background:#185FA5;color:#fff;border-color:#185FA5}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;align-items:center;padding-bottom:1.2rem;border-bottom:1px solid var(--border2)}
 .leg{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text2)}
 .leg-dot{width:16px;height:16px;border-radius:3px;flex-shrink:0}
-.table-wrap{overflow:auto;border:1.5px solid var(--border1);border-radius:var(--radius-lg);max-height:660px;position:relative}
-table{border-collapse:collapse;font-size:13px;width:max-content}
-th,td{border-bottom:1px solid var(--border3)}
-th{background:var(--bg);color:var(--text2);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
-th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--bg);border-right:2px solid var(--border1)}
-td{padding:3px 4px;text-align:center;background:var(--bg)}
-td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--bg);z-index:1;border-right:2px solid var(--border1);font-size:13px;color:var(--text1)}
-tr:hover td{background:var(--bg2)!important}
-tr:hover td.col-name{background:var(--bg2)!important}
+.sc-table-wrap{overflow:auto;border:1.5px solid var(--border1);border-radius:var(--radius-lg);max-height:660px;position:relative}
+.sc-table-wrap table{border-collapse:collapse;font-size:13px;width:max-content}
+.sc-table-wrap th,.sc-table-wrap td{border-bottom:1px solid var(--border3)}
+.sc-table-wrap th{background:var(--bg);color:var(--text2);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
+.sc-table-wrap th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--bg);border-right:2px solid var(--border1)}
+.sc-table-wrap td{padding:3px 4px;text-align:center;background:var(--bg)}
+.sc-table-wrap td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--bg);z-index:1;border-right:2px solid var(--border1);font-size:13px;color:var(--text1)}
+.sc-table-wrap tr:hover td{background:var(--bg2)!important}
+.sc-table-wrap tr:hover td.col-name{background:var(--bg2)!important}
 .cell{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer}
-.cell:hover{outline:2px solid #185FA5;outline-offset:1px}
+.cell:hover{outline:2px solid var(--blue);outline-offset:1px}
 .cell-D{background:#B5D4F4;color:#0C447C}
 .cell-N{background:#3C3489;color:#CECBF6}
 .cell-HD{background:#9FE1CB;color:#085041}
@@ -43,8 +63,8 @@ tr:hover td.col-name{background:var(--bg2)!important}
 .cell-조의{background:#D3D1C7;color:#2C2C2A}
 .cell-결혼{background:#EEEDFE;color:#26215C}
 .cell-off{background:transparent;color:var(--text3)}
-th.sun,td.sun{background:#FEF5F5}
-th.sat,td.sat{background:#F5F8FE}
+.sc-table-wrap th.sun,.sc-table-wrap td.sun{background:#FEF5F5}
+.sc-table-wrap th.sat,.sc-table-wrap td.sat{background:#F5F8FE}
 .section-header td{background:var(--bg2)!important;color:var(--text2);font-size:12px;font-weight:500;padding:5px 10px;border-top:2px solid var(--border1);border-bottom:2px solid var(--border1)}
 .cnt-td{font-size:12px;font-weight:500;text-align:center;padding:3px 5px}
 .time-td{font-size:12px;text-align:right;padding:3px 7px;color:var(--text2)}
@@ -52,50 +72,146 @@ th.sat,td.sat{background:#F5F8FE}
 .juhyu-input{width:44px;font-size:12px;text-align:center;border:1px solid var(--border1);border-radius:3px;background:var(--bg);color:var(--text1);padding:2px 3px}
 .popup{position:absolute;z-index:300;background:var(--bg);border:1.5px solid var(--border1);border-radius:var(--radius);padding:7px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;min-width:150px;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
 .pop-opt{display:flex;align-items:center;justify-content:center;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;padding:0 6px}
-.pop-opt:hover{outline:2px solid #185FA5;outline-offset:1px}
+.pop-opt:hover{outline:2px solid var(--blue);outline-offset:1px}
 .pop-clear{grid-column:1/-1;background:var(--bg2);color:var(--text3);font-size:12px;text-align:center;border-radius:4px;padding:4px;cursor:pointer;border:1px solid var(--border2)}
 .pop-clear:hover{color:var(--text2)}
-</style>
 
-<div class="wrap">
-<h2 class="sr-only">정겨운뜰안 2026년 4월 근무표</h2>
-<div class="toolbar">
-  <div class="toolbar-left">
-    <div class="toolbar-title">정겨운뜰안 근무표</div>
-    <div class="toolbar-sub">2026년 4월</div>
+/* ── 급여대장 ── */
+.py-table-wrap{overflow:auto;border:1.5px solid var(--border1);border-radius:var(--radius-lg);max-height:640px}
+.py-table-wrap table{border-collapse:collapse;table-layout:fixed;width:max-content}
+.py-table-wrap th,.py-table-wrap td{border-bottom:1px solid var(--border3);overflow:hidden;white-space:nowrap}
+.py-table-wrap th{background:var(--bg);color:var(--text2);font-weight:500;padding:7px 4px;text-align:center;position:sticky;top:0;z-index:2;font-size:11px}
+.py-table-wrap th.col-name{text-align:left;padding-left:8px;width:68px;position:sticky;left:0;z-index:3;background:var(--bg);border-right:2px solid var(--border1)}
+.py-table-wrap th.grp{border-left:2px solid var(--border1)}
+.py-table-wrap th.grp2{border-left:1px solid var(--border2)}
+.py-table-wrap th.has-tip{cursor:help}
+.py-table-wrap td{padding:4px 4px;text-align:right;background:var(--bg);color:var(--text1);font-size:12px}
+.py-table-wrap td.col-name{text-align:left;padding-left:8px;font-weight:500;position:sticky;left:0;background:var(--bg);z-index:1;border-right:2px solid var(--border1);width:68px}
+.py-table-wrap td.dept{background:var(--bg2)!important;color:var(--text2);font-size:11px;font-weight:500;padding:4px 10px;border-top:2px solid var(--border1);border-bottom:2px solid var(--border1);text-align:left}
+.py-table-wrap td.grp{border-left:2px solid var(--border1)}
+.py-table-wrap td.grp2{border-left:1px solid var(--border2)}
+.py-table-wrap td.sum{font-weight:500;background:#f0f7ff!important;color:#0C447C}
+.py-table-wrap td.sum.col-name{background:#f0f7ff!important}
+.py-table-wrap td.sum.red{color:#A32D2D}
+.py-table-wrap tr:hover td:not(.dept):not(.sum){background:var(--bg2)!important}
+.py-table-wrap tr:hover td.col-name:not(.sum){background:var(--bg2)!important}
+.editable{background:transparent;border:none;width:100%;font-size:12px;text-align:right;color:var(--text1);padding:0;font-family:inherit}
+.editable:focus{outline:1.5px solid var(--blue);border-radius:3px;background:var(--bg)}
+.ins-cell{display:flex;align-items:center;justify-content:flex-end;gap:3px}
+select.ins-sel{font-size:10px;border:0.5px solid var(--border2);border-radius:3px;background:var(--bg);color:var(--text2);padding:1px 1px;cursor:pointer;flex-shrink:0}
+.tooltip-wrap{position:relative;display:inline-block;width:100%}
+.tooltip{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:10px;padding:3px 7px;border-radius:4px;white-space:nowrap;z-index:100;font-weight:400}
+.tooltip-wrap:hover .tooltip{display:block}
+.summary-bar{display:flex;gap:12px;margin-top:1rem;flex-wrap:wrap}
+.sum-card{background:var(--bg2);border-radius:var(--radius);padding:10px 16px;min-width:140px}
+.sum-card-label{font-size:11px;color:var(--text3);margin-bottom:2px}
+.sum-card-val{font-size:15px;font-weight:500;color:var(--text1)}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- 페이지 헤더 -->
+  <div class="page-header">
+    <div>
+      <div class="page-sub">정겨운뜰안 근무표</div>
+      <div class="page-title">2026년 4월</div>
+    </div>
   </div>
-  <input class="search-box" type="text" placeholder="직원 검색..." id="search" oninput="applyFilter()">
-  <button class="filter-btn active" onclick="filterDept('all',this)">전체</button>
-  <button class="filter-btn" onclick="filterDept('시설/사무',this)">시설/사무</button>
-  <button class="filter-btn" onclick="filterDept('의료',this)">의료</button>
-  <button class="filter-btn" onclick="filterDept('본관',this)">본관</button>
-  <button class="filter-btn" onclick="filterDept('신관2층',this)">신관2층</button>
-  <button class="filter-btn" onclick="filterDept('신관1층',this)">신관1층</button>
-</div>
-<div class="legend">
-  <div class="leg"><div class="leg-dot cell-D"></div>D</div>
-  <div class="leg"><div class="leg-dot cell-N"></div>N</div>
-  <div class="leg"><div class="leg-dot cell-HD"></div>HD</div>
-  <div class="leg"><div class="leg-dot cell-HE"></div>HE</div>
-  <div class="leg"><div class="leg-dot cell-E"></div>E</div>
-  <div class="leg"><div class="leg-dot cell-S"></div>S</div>
-  <div class="leg"><div class="leg-dot cell-S4"></div>S4</div>
-  <div class="leg"><div class="leg-dot cell-F"></div>F</div>
-  <div class="leg"><div class="leg-dot cell-연"></div>연</div>
-  <div class="leg"><div class="leg-dot cell-병"></div>병</div>
-  <div class="leg"><div class="leg-dot cell-조의"></div>조의</div>
-  <div class="leg"><div class="leg-dot cell-결혼"></div>결혼</div>
-  <span style="font-size:12px;color:var(--text3);margin-left:4px">· 셀 클릭으로 변경 / 같은 셀 다시 클릭하면 닫힘</span>
-</div>
-<div class="table-wrap" id="tableWrap">
-<table id="mainTable">
-  <thead id="thead"></thead>
-  <tbody id="tbody"></tbody>
-</table>
-</div>
+
+  <!-- 탭 버튼 -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('schedule',this)">근무표</button>
+    <button class="tab-btn" onclick="switchTab('payroll',this)">급여대장</button>
+  </div>
+
+  <!-- ── 근무표 탭 ── -->
+  <div id="tab-schedule" class="tab-content active">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="toolbar-title">근무표</div>
+        <div class="toolbar-sub">셀 클릭으로 변경 · 같은 셀 다시 클릭하면 닫힘</div>
+      </div>
+      <input class="search-box" type="text" placeholder="직원 검색..." id="search" oninput="applyFilter()">
+      <button class="filter-btn active" onclick="filterDept('all',this)">전체</button>
+      <button class="filter-btn" onclick="filterDept('시설/사무',this)">시설/사무</button>
+      <button class="filter-btn" onclick="filterDept('의료',this)">의료</button>
+      <button class="filter-btn" onclick="filterDept('본관',this)">본관</button>
+      <button class="filter-btn" onclick="filterDept('신관2층',this)">신관2층</button>
+      <button class="filter-btn" onclick="filterDept('신관1층',this)">신관1층</button>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot cell-D"></div>D</div>
+      <div class="leg"><div class="leg-dot cell-N"></div>N</div>
+      <div class="leg"><div class="leg-dot cell-HD"></div>HD</div>
+      <div class="leg"><div class="leg-dot cell-HE"></div>HE</div>
+      <div class="leg"><div class="leg-dot cell-E"></div>E</div>
+      <div class="leg"><div class="leg-dot cell-S"></div>S</div>
+      <div class="leg"><div class="leg-dot cell-S4"></div>S4</div>
+      <div class="leg"><div class="leg-dot cell-F"></div>F</div>
+      <div class="leg"><div class="leg-dot cell-연"></div>연</div>
+      <div class="leg"><div class="leg-dot cell-병"></div>병</div>
+      <div class="leg"><div class="leg-dot cell-조의"></div>조의</div>
+      <div class="leg"><div class="leg-dot cell-결혼"></div>결혼</div>
+    </div>
+    <div class="sc-table-wrap" id="tableWrap">
+      <table id="mainTable">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 급여대장 탭 ── -->
+  <div id="tab-payroll" class="tab-content">
+    <div class="toolbar" style="margin-bottom:1.2rem">
+      <div class="toolbar-left">
+        <div class="toolbar-title">급여대장</div>
+        <div class="toolbar-sub">장기근속·인력취약 수동 입력 · 4대보험 면제 선택 가능</div>
+      </div>
+    </div>
+    <div class="py-table-wrap">
+      <table id="payTable">
+        <colgroup>
+          <col style="width:68px"><col style="width:52px">
+          <col style="width:72px"><col style="width:72px"><col style="width:72px">
+          <col style="width:72px"><col style="width:72px"><col style="width:72px">
+          <col style="width:72px"><col style="width:72px">
+          <col style="width:82px">
+          <col style="width:68px"><col style="width:58px">
+          <col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:96px">
+          <col style="width:76px"><col style="width:82px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="col-name">직원</th>
+            <th>시급</th>
+            <th>주간급여</th><th>야간급여</th><th>연차수당</th>
+            <th>병가수당</th><th>경조사</th><th>주휴수당</th>
+            <th class="has-tip"><div class="tooltip-wrap">장기근속<div class="tooltip">수동 입력</div></div></th>
+            <th class="has-tip"><div class="tooltip-wrap">인력취약<div class="tooltip">수동 입력</div></div></th>
+            <th class="grp" style="font-weight:600;color:var(--text1)">지급총액</th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">갑근세<div class="tooltip">간이세액표 1인 기준</div></div></th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">주민세<div class="tooltip">갑근세의 10%</div></div></th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">국민연금<div class="tooltip">요율 4.5%</div></div></th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">건강보험<div class="tooltip">요율 3.545%</div></div></th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">장기요양<div class="tooltip">건강보험료의 12.95%</div></div></th>
+            <th class="grp2 has-tip"><div class="tooltip-wrap">고용보험<div class="tooltip">요율 0.9%</div></div></th>
+            <th class="grp" style="font-weight:600;color:var(--text1)">공제총액</th>
+            <th class="grp" style="font-weight:600;color:var(--text1)">실지급액</th>
+          </tr>
+        </thead>
+        <tbody id="payBody"></tbody>
+      </table>
+    </div>
+    <div class="summary-bar" id="summaryBar"></div>
+  </div>
 </div>
 
 <script>
+/* ══════════════════════════════════════
+   공유 데이터
+══════════════════════════════════════ */
 const CODES=['D','N','HD','HE','E','S','S4','F','연','병','조의','결혼'];
 const CODE_COLORS={
   D:{bg:'#B5D4F4',txt:'#0C447C'},N:{bg:'#3C3489',txt:'#CECBF6'},
@@ -120,44 +236,61 @@ function wdayVal(c){return{D:1,N:1,E:1,S:1,S4:1,F:1,HD:0.5,HE:0.5}[c]||0}
 
 const NDAYS=30;
 const employees=[
-  {name:'박초하',dept:'시설/사무',s:['D','N','D','D','D','HE','HE','연','연','D',null,'D','D','D','연','D','D',null,'D','D','HD','D','HE','D',null,'HD',null,'D','HE','D']},
-  {name:'배인석',dept:'시설/사무',s:['HD','D','D',null,'HD','D',null,'D','D',null,'D','D','D','HD','D','연','연',null,'D','D',null,'D',null,'HE','D','D','연','D','D',null]},
-  {name:'배찬미',dept:'시설/사무',s:['D','D',null,'D','D',null,null,'D','D','D','D',null,'D','D','D',null,'HE','D','HE',null,'D','D','D','D','D',null,'D','D','D','D']},
-  {name:'최희망',dept:'시설/사무',s:['D','D','D','D',null,'D','D','D',null,'D','D','D','D',null,'D','D','D',null,null,'D','D',null,'D','D',null,'D','D',null,'D','D']},
-  {name:'박정진',dept:'의료',s:['D','D','D',null,null,'D','D','D','D','D',null,null,'D','D','D','D','연',null,null,'D','D','D','D','D',null,null,'D','D','D','D']},
-  {name:'이승아',dept:'의료',s:['D','D','D',null,null,'D','D','D','연','D','D','D','D','D','D',null,'D','D',null,null,'D','HD','D','D',null,'D','D','D',null,'D']},
-  {name:'박경미',dept:'의료',s:['D',null,'D','D',null,'연','D','D','D','D',null,null,'D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null,'D','D','D',null]},
-  {name:'신명숙',dept:'의료',s:['F','F','F','F','S4','S4',null,'F',null,'F','S4',null,'S4','F',null,null,'F','F','S4','S4','F','연','S4','F','S4','S4',null,'F',null,'S4']},
-  {name:'이인자',dept:'의료',s:[null,null,null,'D','D','D','F','F','F',null,'D','F','D',null,'D','F',null,'F','D','D',null,'F','F',null,'D','D','F',null,'F','D']},
-  {name:'박란례',dept:'본관',s:['D','D','D',null,null,'D','D',null,'D','D','D',null,'D','D','연','연','D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null]},
-  {name:'모선',dept:'본관',s:[null,'N',null,'D','D','N',null,null,'N',null,'D','D','N',null,null,'N',null,null,'D',null,null,null,'N',null,'D','D','연','연',null,'N']},
-  {name:'김영희',dept:'본관',s:['D','연','연','D','N','N',null,'N',null,'D',null,'N','N','N',null,'D','N','N',null,null,'D','N',null,'D','D',null,'N',null,'D','D']},
-  {name:'주은순',dept:'본관',s:['D','D','D','연',null,'D','D',null,'D','D',null,'D','D',null,'D','D',null,'D','D','D',null,'N','D','D',null,null,'N','N','D','D']},
-  {name:'김영순',dept:'본관',s:['N',null,'D',null,'D','D','N',null,null,'N',null,null,'D','D',null,'연','연',null,null,'N',null,'D','D','D',null,'N',null,'D','N',null]},
-  {name:'차순옥',dept:'본관',s:[null,'D','N','N',null,null,'D','D','D','연','N',null,'D','D','N',null,'D',null,'D',null,'N',null,'S','N',null,null,'S','N',null,null]},
-  {name:'이정순',dept:'신관2층',s:['N',null,null,'D',null,'D','D','D',null,'N','N',null,null,'D','D',null,'D','D','N',null,'D','D',null,'N',null,'D','D',null,'D','연']},
-  {name:'조도현',dept:'신관2층',s:['D',null,'D',null,'N',null,'연','N',null,'D','D',null,'N',null,'D','D','D','N',null,'D','D','N',null,null,null,'D','N','N',null,null]},
-  {name:'박정순',dept:'신관2층',s:[null,'연','연','D','D',null,'D',null,'N',null,null,'D','D','N','N',null,'D','D','N','N','D','D','N',null,'HD',null,null,'D','D','D']},
-  {name:'노종윤',dept:'신관2층',s:[null,'N','N',null,'D','N','N','N',null,'HD',null,null,null,'연','연','D','D','N',null,null,'D','D',null,'D',null,'D','N',null,'N','N']},
-  {name:'강진경',dept:'신관2층',s:['D','D','D','N',null,'D',null,'D',null,'D','D','D','D',null,'D',null,'N','연',null,'D','D',null,'D','D','D','D',null,'연','연','D']},
-  {name:'이선자',dept:'신관2층',s:['D',null,'N',null,'D','D','N',null,'D',null,'D','N',null,'D','D','D','연','연',null,'D','N',null,'D',null,null,'N','N','D','D',null]},
-  {name:'김덕임',dept:'신관2층',s:[null,'D',null,'D','N',null,null,'D','D',null,'D',null,'N',null,'N',null,'D','연','D','N',null,'연','연','N',null,null,'D',null,'D',null]},
-  {name:'플로란',dept:'신관2층',s:[null,'D',null,'N',null,null,'D','D','연','연',null,'S',null,null,'N',null,'N','N','S','D',null,'D','D',null,'N',null,null,null,'N',null]},
-  {name:'신화숙',dept:'신관2층',s:['N','N','D','D',null,null,'D',null,'D','D','N',null,null,'D','N','N',null,null,'D','연',null,'N',null,'D','D',null,'D','N',null,'D']},
-  {name:'조선자',dept:'신관1층',s:['D',null,'HD',null,'N',null,null,'D','D','D','N',null,'D','D','N',null,'D','N',null,null,'D','N',null,null,'D',null,'S','N',null,'N']},
-  {name:'박선영',dept:'신관1층',s:['D','N',null,'D','D','연',null,null,'S','N','S','D','N',null,'D',null,null,'D','N','N',null,'D',null,'N',null,'D','N',null,null,'D']},
-  {name:'김윤옥',dept:'신관1층',s:[null,'D','D',null,null,'N',null,'N','N','D',null,'N',null,'D','D',null,'D','N',null,'D','D','연','연','D','D','N','N',null,'D','N']},
-  {name:'김양자',dept:'신관1층',s:[null,'N',null,'D','S',null,'N',null,'N',null,'D','S','N','N','N','N','D','D','S',null,'N',null,'N',null,'S','S','연','연',null,null]},
-  {name:'박정래',dept:'신관1층',s:['N',null,'N',null,null,'D','D',null,'D','N','N','S','N','연','연','D','D',null,'S','N',null,null,'D','D',null,'S','S','S',null,null]},
-  {name:'최상덕',dept:'신관1층',s:[null,'D',null,'D',null,'N',null,'D','N',null,'N','N',null,'N',null,'D','연','D','N','N',null,'N','N','N',null,'D',null,null,'D','D']},
-  {name:'김미자',dept:'신관1층',s:[null,null,'D','N','N','S','D','N','N','D',null,'D',null,'연','연','N','N',null,'D','D','N',null,'D','D',null,null,null,'S','N',null]},
-  {name:'신요양',dept:'신관1층',s:[null,null,null,null,null,null,null,null,null,null,null,'D',null,'D','D','D',null,'D','D','D','D','D','D',null,null,null,'D','D','D','D']},
+  {name:'박초하',dept:'시설/사무',rate:27500,s:['D','N','D','D','D','HE','HE','연','연','D',null,'D','D','D','연','D','D',null,'D','D','HD','D','HE','D',null,'HD',null,'D','HE','D']},
+  {name:'배인석',dept:'시설/사무',rate:20000,s:['HD','D','D',null,'HD','D',null,'D','D',null,'D','D','D','HD','D','연','연',null,'D','D',null,'D',null,'HE','D','D','연','D','D',null]},
+  {name:'배찬미',dept:'시설/사무',rate:15000,s:['D','D',null,'D','D',null,null,'D','D','D','D',null,'D','D','D',null,'HE','D','HE',null,'D','D','D','D','D',null,'D','D','D','D']},
+  {name:'최희망',dept:'시설/사무',rate:12030,s:['D','D','D','D',null,'D','D','D',null,'D','D','D','D',null,'D','D','D',null,null,'D','D',null,'D','D',null,'D','D',null,'D','D']},
+  {name:'박정진',dept:'의료',rate:15300,s:['D','D','D',null,null,'D','D','D','D','D',null,null,'D','D','D','D','연',null,null,'D','D','D','D','D',null,null,'D','D','D','D']},
+  {name:'이승아',dept:'의료',rate:13300,s:['D','D','D',null,null,'D','D','D','연','D','D','D','D','D','D',null,'D','D',null,null,'D','HD','D','D',null,'D','D','D',null,'D']},
+  {name:'박경미',dept:'의료',rate:13300,s:['D',null,'D','D',null,'연','D','D','D','D',null,null,'D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null,'D','D','D',null]},
+  {name:'신명숙',dept:'의료',rate:11500,s:['F','F','F','F','S4','S4',null,'F',null,'F','S4',null,'S4','F',null,null,'F','F','S4','S4','F','연','S4','F','S4','S4',null,'F',null,'S4']},
+  {name:'이인자',dept:'의료',rate:11500,s:[null,null,null,'D','D','D','F','F','F',null,'D','F','D',null,'D','F',null,'F','D','D',null,'F','F',null,'D','D','F',null,'F','D']},
+  {name:'박란례',dept:'본관',rate:10320,s:['D','D','D',null,null,'D','D',null,'D','D','D',null,'D','D','연','연','D','D',null,'D','D',null,'D','D','D',null,'D','D','D',null]},
+  {name:'모선',dept:'본관',rate:10320,s:[null,'N',null,'D','D','N',null,null,'N',null,'D','D','N',null,null,'N',null,null,'D',null,null,null,'N',null,'D','D','연','연',null,'N']},
+  {name:'김영희',dept:'본관',rate:10320,s:['D','연','연','D','N','N',null,'N',null,'D',null,'N','N','N',null,'D','N','N',null,null,'D','N',null,'D','D',null,'N',null,'D','D']},
+  {name:'주은순',dept:'본관',rate:10320,s:['D','D','D','연',null,'D','D',null,'D','D',null,'D','D',null,'D','D',null,'D','D','D',null,'N','D','D',null,null,'N','N','D','D']},
+  {name:'김영순',dept:'본관',rate:10320,s:['N',null,'D',null,'D','D','N',null,null,'N',null,null,'D','D',null,'연','연',null,null,'N',null,'D','D','D',null,'N',null,'D','N',null]},
+  {name:'차순옥',dept:'본관',rate:10320,s:[null,'D','N','N',null,null,'D','D','D','연','N',null,'D','D','N',null,'D',null,'D',null,'N',null,'S','N',null,null,'S','N',null,null]},
+  {name:'이정순',dept:'신관2층',rate:10320,s:['N',null,null,'D',null,'D','D','D',null,'N','N',null,null,'D','D',null,'D','D','N',null,'D','D',null,'N',null,'D','D',null,'D','연']},
+  {name:'조도현',dept:'신관2층',rate:10320,s:['D',null,'D',null,'N',null,'연','N',null,'D','D',null,'N',null,'D','D','D','N',null,'D','D','N',null,null,null,'D','N','N',null,null]},
+  {name:'박정순',dept:'신관2층',rate:10320,s:[null,'연','연','D','D',null,'D',null,'N',null,null,'D','D','N','N',null,'D','D','N','N','D','D','N',null,'HD',null,null,'D','D','D']},
+  {name:'노종윤',dept:'신관2층',rate:10320,s:[null,'N','N',null,'D','N','N','N',null,'HD',null,null,null,'연','연','D','D','N',null,null,'D','D',null,'D',null,'D','N',null,'N','N']},
+  {name:'강진경',dept:'신관2층',rate:10320,s:['D','D','D','N',null,'D',null,'D',null,'D','D','D','D',null,'D',null,'N','연',null,'D','D',null,'D','D','D','D',null,'연','연','D']},
+  {name:'이선자',dept:'신관2층',rate:10320,s:['D',null,'N',null,'D','D','N',null,'D',null,'D','N',null,'D','D','D','연','연',null,'D','N',null,'D',null,null,'N','N','D','D',null]},
+  {name:'김덕임',dept:'신관2층',rate:10320,s:[null,'D',null,'D','N',null,null,'D','D',null,'D',null,'N',null,'N',null,'D','연','D','N',null,'연','연','N',null,null,'D',null,'D',null]},
+  {name:'플로란',dept:'신관2층',rate:10320,s:[null,'D',null,'N',null,null,'D','D','연','연',null,'S',null,null,'N',null,'N','N','S','D',null,'D','D',null,'N',null,null,null,'N',null]},
+  {name:'신화숙',dept:'신관2층',rate:10320,s:['N','N','D','D',null,null,'D',null,'D','D','N',null,null,'D','N','N',null,null,'D','연',null,'N',null,'D','D',null,'D','N',null,'D']},
+  {name:'조선자',dept:'신관1층',rate:10320,s:['D',null,'HD',null,'N',null,null,'D','D','D','N',null,'D','D','N',null,'D','N',null,null,'D','N',null,null,'D',null,'S','N',null,'N']},
+  {name:'박선영',dept:'신관1층',rate:10320,s:['D','N',null,'D','D','연',null,null,'S','N','S','D','N',null,'D',null,null,'D','N','N',null,'D',null,'N',null,'D','N',null,null,'D']},
+  {name:'김윤옥',dept:'신관1층',rate:10320,s:[null,'D','D',null,null,'N',null,'N','N','D',null,'N',null,'D','D',null,'D','N',null,'D','D','연','연','D','D','N','N',null,'D','N']},
+  {name:'김양자',dept:'신관1층',rate:10320,s:[null,'N',null,'D','S',null,'N',null,'N',null,'D','S','N','N','N','N','D','D','S',null,'N',null,'N',null,'S','S','연','연',null,null]},
+  {name:'박정래',dept:'신관1층',rate:10320,s:['N',null,'N',null,null,'D','D',null,'D','N','N','S','N','연','연','D','D',null,'S','N',null,null,'D','D',null,'S','S','S',null,null]},
+  {name:'최상덕',dept:'신관1층',rate:10320,s:[null,'D',null,'D',null,'N',null,'D','N',null,'N','N',null,'N',null,'D','연','D','N','N',null,'N','N','N',null,'D',null,null,'D','D']},
+  {name:'김미자',dept:'신관1층',rate:10320,s:[null,null,'D','N','N','S','D','N','N','D',null,'D',null,'연','연','N','N',null,'D','D','N',null,'D','D',null,null,null,'S','N',null]},
+  {name:'신요양',dept:'신관1층',rate:10320,s:[null,null,null,null,null,null,null,null,null,null,null,'D',null,'D','D','D',null,'D','D','D','D','D','D',null,null,null,'D','D','D','D']},
 ];
 
 const schedules=employees.map(e=>[...e.s]);
 const juhyuVals=employees.map(()=>4);
+const manual=employees.map(()=>({longserve:0,vuln:0,ex:{pension:false,health:false,ltcare:false,employ:false}}));
+
 const weekdays=[2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3];
 const WD=['일','월','화','수','목','금','토'];
+const DEPTS=['시설/사무','의료','본관','신관2층','신관1층'];
+
+/* ══════════════════════════════════════
+   탭 전환
+══════════════════════════════════════ */
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ══════════════════════════════════════
+   근무표
+══════════════════════════════════════ */
 let currentDept='all';
 let activePopup=null;
 let activePopupKey=null;
@@ -179,8 +312,7 @@ function calcStats(gi){
 
 function buildTable(){
   const TIME_COLS=['주간','야간','연차','병가','경조사','총시간','근무일수','주휴수당'];
-  let r='<tr>';
-  r+=`<th class="col-name">직원</th>`;
+  let r='<tr><th class="col-name">직원</th>';
   for(let d=1;d<=NDAYS;d++){
     const wd=weekdays[d-1];
     const cls=wd===0?'sun':wd===6?'sat':'';
@@ -198,16 +330,13 @@ function buildTable(){
   r+='</tr>';
   document.getElementById('thead').innerHTML=r;
 
-  const depts=['시설/사무','의료','본관','신관2층','신관1층'];
   let body='';
-  depts.forEach(dept=>{
-    const emps=employees.filter(e=>e.dept===dept);
+  DEPTS.forEach(dept=>{
     body+=`<tr class="section-header" data-dept="${dept}"><td colspan="999">${dept}</td></tr>`;
-    emps.forEach(emp=>{
+    employees.filter(e=>e.dept===dept).forEach(emp=>{
       const gi=employees.indexOf(emp);
       const st=calcStats(gi);
-      body+=`<tr data-name="${emp.name}" data-dept="${emp.dept}">`;
-      body+=`<td class="col-name">${emp.name}</td>`;
+      body+=`<tr data-name="${emp.name}" data-dept="${emp.dept}"><td class="col-name">${emp.name}</td>`;
       schedules[gi].forEach((code,di)=>{
         const wd=weekdays[di];
         const tcls=wd===0?'sun':wd===6?'sat':'';
@@ -231,7 +360,7 @@ function buildTable(){
   document.getElementById('tbody').innerHTML=body;
 }
 
-function refreshRow(gi){
+function scRefreshRow(gi){
   const st=calcStats(gi);
   CODES.forEach(c=>{const el=document.getElementById(`cnt-${gi}-${c}`);if(el)el.textContent=st.cnt[c]||'';});
   [st.dh,st.nh,st.ah,st.sh,st.ch,st.total,st.wd].forEach((v,i)=>{
@@ -273,7 +402,8 @@ function applyCode(gi,di,code){
   schedules[gi][di]=code;
   const cell=document.querySelector(`.cell[data-emp="${gi}"][data-day="${di}"]`);
   if(cell){cell.className='cell '+cellCls(code);cell.textContent=code||'-';}
-  refreshRow(gi);
+  scRefreshRow(gi);
+  pyRefreshRow(gi); // 급여대장도 연동
 }
 
 function filterDept(dept,btn){
@@ -292,5 +422,135 @@ function applyFilter(){
 }
 
 document.addEventListener('click',e=>{if(activePopup&&!activePopup.contains(e.target))closePopup();});
+
+/* ══════════════════════════════════════
+   급여대장
+══════════════════════════════════════ */
+const TAX_TABLE=[[1060000,0],[1065000,1040],[1070000,1110],[1075000,1180],[1080000,1250],[1085000,1320],[1090000,1390],[1095000,1460],[1100000,1530],[1105000,1600],[1110000,1670],[1115000,1740],[1120000,1810],[1125000,1880],[1130000,1950],[1135000,2020],[1140000,2090],[1145000,2160],[1150000,2230],[1155000,2300],[1160000,2370],[1165000,2440],[1170000,2500],[1175000,2570],[1180000,2640],[1185000,2710],[1190000,2780],[1195000,2850],[1200000,2920],[1205000,2990],[1210000,3060],[1215000,3130],[1220000,3200],[1225000,3270],[1230000,3340],[1235000,3410],[1240000,3480],[1245000,3550],[1250000,3620],[1255000,3700],[1260000,3810],[1265000,3910],[1270000,4010],[1275000,4120],[1280000,4220],[1285000,4320],[1290000,4430],[1295000,4530],[1300000,4630],[1305000,4740],[1310000,4840],[1315000,4940],[1320000,5050],[1325000,5150],[1330000,5250],[1335000,5360],[1340000,5460],[1345000,5560],[1350000,5670],[1355000,5770],[1360000,5870],[1365000,5980],[1370000,6080],[1375000,6180],[1380000,6290],[1385000,6390],[1390000,6490],[1395000,6600],[1400000,6700],[1405000,6800],[1410000,6910],[1415000,7010],[1420000,7110],[1425000,7210],[1430000,7320],[1435000,7420],[1440000,7520],[1445000,7630],[1450000,7730],[1455000,7830],[1460000,7940],[1465000,8040],[1470000,8140],[1475000,8250],[1480000,8350],[1485000,8450],[1490000,8560],[1495000,8660],[1500000,8760],[1510000,8920],[1520000,9120],[1530000,9330],[1540000,9540],[1550000,9740],[1560000,9950],[1570000,10160],[1580000,10360],[1590000,10570],[1600000,10780],[1610000,10980],[1620000,11190],[1630000,11400],[1640000,11600],[1650000,11810],[1660000,12020],[1670000,12220],[1680000,12430],[1690000,12640],[1700000,12840],[1710000,13050],[1720000,13260],[1730000,13460],[1740000,13670],[1750000,13880],[1760000,14080],[1770000,14290],[1780000,14500],[1790000,14700],[1800000,14910],[1810000,15110],[1820000,15320],[1830000,15530],[1840000,15730],[1850000,15940],[1860000,16150],[1870000,16350],[1880000,16560],[1890000,16770],[1900000,16970],[1910000,17180],[1920000,17390],[1930000,17590],[1940000,17800],[1950000,18010],[1960000,18210],[1970000,18420],[1980000,18630],[1990000,18880],[2000000,19200],[2010000,19520],[2020000,19850],[2030000,20170],[2040000,20490],[2050000,20810],[2060000,21130],[2070000,21450],[2080000,21770],[2090000,22090],[2100000,22420],[2110000,22740],[2120000,23060],[2130000,23380],[2140000,23700],[2150000,24020],[2160000,24340],[2170000,24660],[2180000,24990],[2190000,25310],[2200000,25630],[2210000,25950],[2220000,26270],[2230000,26590],[2240000,26910],[2250000,27240],[2260000,27560],[2270000,27880],[2280000,28200],[2290000,28520],[2300000,28840],[2310000,29160],[2320000,29480],[2330000,29810],[2340000,30130],[2350000,30450],[2360000,30770],[2370000,31090],[2380000,31410],[2390000,31970],[2400000,32770],[2410000,33570],[2420000,34380],[2430000,35180],[2440000,35980],[2450000,36790],[2460000,37590],[2470000,38390],[2480000,39200],[2490000,40000],[2500000,40800],[2510000,41630],[2520000,42490],[2530000,43340],[2540000,44200],[2550000,45050],[2560000,45910],[2570000,46770],[2580000,47620],[2590000,48480],[2600000,49330],[2610000,50190],[2620000,51040],[2630000,51900],[2640000,52760],[2650000,53610],[2660000,54470],[2670000,55320],[2680000,56180],[2690000,57040],[2700000,57890],[2710000,58750],[2720000,59600],[2730000,60460],[2740000,61310],[2750000,62170],[2760000,63030],[2770000,63880],[2780000,64740],[2790000,65590],[2800000,66450],[2810000,67300],[2820000,68160],[2830000,69020],[2840000,69870],[2850000,70730],[2860000,71580],[2870000,72440],[2880000,73290],[2890000,74150],[2900000,75010],[2910000,75860],[2920000,76720],[2930000,77570],[2940000,78430],[2950000,79280],[2960000,80140],[2970000,81000],[2980000,81850],[2990000,82710],[3000000,83560],[3020000,84850],[3040000,86560],[3060000,88270],[3080000,89980],[3100000,91690],[3120000,93400],[3140000,95760],[3160000,98210],[3180000,100650],[3200000,103100],[3220000,105540],[3240000,107990],[3260000,110430],[3280000,112880],[3300000,115320],[3320000,117770],[3340000,120210],[3360000,122660],[3380000,125100],[3400000,127550],[3420000,129990],[3440000,132440],[3460000,134880],[3480000,137330],[3500000,139770],[3520000,142220],[3540000,144660],[3560000,147110],[3580000,149550],[3600000,152000],[3620000,154440],[3640000,156890],[3660000,159330],[3680000,161780],[3700000,164220],[3720000,166670],[3740000,169110],[3760000,171560],[3780000,178920],[3800000,181590],[3820000,184260],[3840000,186930],[3860000,189600],[3880000,192270],[3900000,194940],[3920000,197610],[3940000,200280],[3960000,202950],[3980000,205620],[4000000,208290],[4020000,210960],[4040000,213630],[4060000,216300],[4080000,218970],[4100000,221640],[4120000,224310],[4140000,226980],[4160000,229650],[4180000,232320],[4200000,234990],[4220000,237660],[4240000,240330],[4260000,243000],[4280000,245670],[4300000,248340],[4320000,251010],[4340000,253680],[4360000,256350],[4380000,259020],[4400000,261690],[4420000,264360],[4440000,267030],[4460000,269700],[4480000,272370],[4500000,275040],[4520000,277840],[4540000,280650],[4560000,283450],[4580000,286260],[4600000,291560],[4620000,294370],[4640000,297170],[4660000,299980],[4680000,302780],[4700000,305590],[4720000,308390],[4740000,311200],[4760000,314000],[4780000,316810],[4800000,319610],[4820000,322420],[4840000,325220],[4860000,328030],[4880000,330830],[4900000,333640],[4920000,336440],[4940000,339250],[4960000,342050],[4980000,344860],[5000000,347660]];
+
+function lookupTax(income){
+  if(income<1060000)return 0;
+  let tax=0;
+  for(let i=TAX_TABLE.length-1;i>=0;i--){if(income>=TAX_TABLE[i][0]){tax=TAX_TABLE[i][1]||0;break;}}
+  return tax;
+}
+
+function calcPay(gi){
+  const emp=employees[gi];const s=schedules[gi];const r=emp.rate;
+  const dh=s.reduce((a,c)=>a+dayH(c||''),0);
+  const nh=s.reduce((a,c)=>a+nightH(c||''),0);
+  const ah=s.reduce((a,c)=>a+annH(c||''),0);
+  const bh=s.reduce((a,c)=>a+sickH(c||''),0);
+  const ch=s.reduce((a,c)=>a+condH(c||''),0);
+  const dayPay=Math.round(r*dh);
+  const nightPay=Math.round(r*nh);
+  const annPay=Math.round(r*ah);
+  const sickPay=Math.round(r*bh);
+  const condPay=Math.round(r*ch);
+  const juhyuPay=Math.round(r*8*juhyuVals[gi]);
+  const m=manual[gi];
+  const total=dayPay+nightPay+annPay+sickPay+condPay+juhyuPay+m.longserve+m.vuln;
+  const tax=lookupTax(total);
+  const resident=Math.floor(tax*0.1);
+  const ex=m.ex;
+  const pension=ex.pension?0:Math.round(total*0.045);
+  const health=ex.health?0:Math.round(total*0.03545);
+  const ltcare=ex.ltcare?0:Math.round(health*0.1295);
+  const employ=ex.employ?0:Math.round(total*0.009);
+  const deduct=tax+resident+pension+health+ltcare+employ;
+  const net=total-deduct;
+  return{dayPay,nightPay,annPay,sickPay,condPay,juhyuPay,total,tax,resident,pension,health,ltcare,employ,deduct,net};
+}
+
+function pn(v){return v===0?'0':v.toLocaleString();}
+function pp(v){return v===0?'-':v.toLocaleString();}
+
+function insCell(gi,field,val,exempt){
+  return `<div class="ins-cell"><span id="${field}-${gi}">${exempt?'0':pn(val)}</span><select class="ins-sel" onchange="upE(${gi},'${field}',this.value)"><option value="N"${!exempt?' selected':''}>적용</option><option value="Y"${exempt?' selected':''}>면제</option></select></div>`;
+}
+
+function buildPayTable(){
+  let html='';
+  DEPTS.forEach(dept=>{
+    html+=`<tr><td class="dept" colspan="19">${dept}</td></tr>`;
+    employees.filter(e=>e.dept===dept).forEach(emp=>{
+      const gi=employees.indexOf(emp);
+      const p=calcPay(gi);
+      const m=manual[gi];const ex=m.ex;
+      html+=`<tr>
+        <td class="col-name">${emp.name}</td>
+        <td>${emp.rate.toLocaleString()}</td>
+        <td>${pp(p.dayPay)}</td><td>${pp(p.nightPay)}</td><td>${pp(p.annPay)}</td>
+        <td>${pp(p.sickPay)}</td><td>${pp(p.condPay)}</td><td>${pp(p.juhyuPay)}</td>
+        <td><input class="editable" type="number" value="${m.longserve}" min="0" step="10000" onchange="upM(${gi},'longserve',this.value)"></td>
+        <td><input class="editable" type="number" value="${m.vuln}" min="0" step="10000" onchange="upM(${gi},'vuln',this.value)"></td>
+        <td class="grp" id="py-tt-${gi}" style="font-weight:600;color:#0C447C">${p.total.toLocaleString()}</td>
+        <td class="grp2" id="py-tx-${gi}">${pn(p.tax)}</td>
+        <td class="grp2" id="py-re-${gi}">${pn(p.resident)}</td>
+        <td class="grp2">${insCell(gi,'pension',p.pension,ex.pension)}</td>
+        <td class="grp2">${insCell(gi,'health',p.health,ex.health)}</td>
+        <td class="grp2">${insCell(gi,'ltcare',p.ltcare,ex.ltcare)}</td>
+        <td class="grp2">${insCell(gi,'employ',p.employ,ex.employ)}</td>
+        <td class="grp" id="py-dd-${gi}" style="color:#A32D2D">${p.deduct.toLocaleString()}</td>
+        <td class="grp" id="py-nt-${gi}" style="font-weight:600;color:#0C447C">${p.net.toLocaleString()}</td>
+      </tr>`;
+    });
+  });
+  html+=`<tr>
+    <td class="col-name sum">합계</td><td class="sum"></td>
+    <td class="sum" id="s-day"></td><td class="sum" id="s-night"></td><td class="sum" id="s-ann"></td>
+    <td class="sum" id="s-sick"></td><td class="sum" id="s-cond"></td><td class="sum" id="s-juhyu"></td>
+    <td class="sum"></td><td class="sum"></td>
+    <td class="sum grp" id="s-total" style="font-weight:600"></td>
+    <td class="sum grp2" id="s-tax"></td><td class="sum grp2" id="s-res"></td>
+    <td class="sum grp2" id="s-pen"></td><td class="sum grp2" id="s-hlt"></td>
+    <td class="sum grp2" id="s-ltc"></td><td class="sum grp2" id="s-emp"></td>
+    <td class="sum grp red" id="s-deduct"></td>
+    <td class="sum grp" id="s-net" style="font-weight:600"></td>
+  </tr>`;
+  document.getElementById('payBody').innerHTML=html;
+  updateTotals();
+}
+
+function updateTotals(){
+  let t={dayPay:0,nightPay:0,annPay:0,sickPay:0,condPay:0,juhyuPay:0,total:0,tax:0,resident:0,pension:0,health:0,ltcare:0,employ:0,deduct:0,net:0};
+  employees.forEach((_,gi)=>{const p=calcPay(gi);Object.keys(t).forEach(k=>t[k]+=p[k]);});
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v.toLocaleString();};
+  set('s-day',t.dayPay);set('s-night',t.nightPay);set('s-ann',t.annPay);
+  set('s-sick',t.sickPay);set('s-cond',t.condPay);set('s-juhyu',t.juhyuPay);
+  set('s-total',t.total);set('s-tax',t.tax);set('s-res',t.resident);
+  set('s-pen',t.pension);set('s-hlt',t.health);set('s-ltc',t.ltcare);
+  set('s-emp',t.employ);set('s-deduct',t.deduct);set('s-net',t.net);
+  const sb=document.getElementById('summaryBar');
+  if(sb)sb.innerHTML=`
+    <div class="sum-card"><div class="sum-card-label">지급총액 합계</div><div class="sum-card-val">${t.total.toLocaleString()}원</div></div>
+    <div class="sum-card"><div class="sum-card-label">공제총액 합계</div><div class="sum-card-val" style="color:#A32D2D">${t.deduct.toLocaleString()}원</div></div>
+    <div class="sum-card"><div class="sum-card-label">실지급액 합계</div><div class="sum-card-val" style="color:#0C447C">${t.net.toLocaleString()}원</div></div>`;
+}
+
+function pyRefreshRow(gi){
+  const p=calcPay(gi);const ex=manual[gi].ex;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set(`py-tt-${gi}`,p.total.toLocaleString());
+  set(`py-tx-${gi}`,pn(p.tax));
+  set(`py-re-${gi}`,pn(p.resident));
+  set(`pension-${gi}`,ex.pension?'0':pn(p.pension));
+  set(`health-${gi}`,ex.health?'0':pn(p.health));
+  set(`ltcare-${gi}`,ex.ltcare?'0':pn(p.ltcare));
+  set(`employ-${gi}`,ex.employ?'0':pn(p.employ));
+  set(`py-dd-${gi}`,p.deduct.toLocaleString());
+  set(`py-nt-${gi}`,p.net.toLocaleString());
+  updateTotals();
+}
+
+function upM(gi,field,val){manual[gi][field]=parseInt(val)||0;pyRefreshRow(gi);}
+function upE(gi,field,val){manual[gi].ex[field]=val==='Y';pyRefreshRow(gi);}
+
+/* ══════════════════════════════════════
+   초기화
+══════════════════════════════════════ */
 buildTable();
+buildPayTable();
 </script>
+</body>
+</html>
