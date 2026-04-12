@@ -1,27 +1,28 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-.wrap{padding:1rem;font-family:var(--font-sans)}
-.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:1rem}
-.toolbar h2{font-size:15px;font-weight:500;color:var(--color-text-primary);flex:1;min-width:160px}
-.search-box{padding:5px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-primary);color:var(--color-text-primary);width:130px}
-.filter-btn{padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;cursor:pointer;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.wrap{padding:1.5rem;font-family:var(--font-sans)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--color-border-secondary)}
+.toolbar h2{font-size:18px;font-weight:500;color:var(--color-text-primary);flex:1;min-width:160px}
+.search-box{padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-primary);color:var(--color-text-primary);width:160px}
+.filter-btn{padding:5px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;background:var(--color-background-secondary);color:var(--color-text-secondary)}
 .filter-btn.active{background:#185FA5;color:#fff;border-color:#185FA5}
-.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem;align-items:center}
-.leg{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-secondary)}
-.leg-dot{width:13px;height:13px;border-radius:3px;flex-shrink:0}
-.table-wrap{overflow:auto;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);max-height:560px}
-table{border-collapse:collapse;font-size:11px;width:max-content}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;align-items:center;padding-bottom:1.2rem;border-bottom:1px solid var(--color-border-tertiary)}
+.leg{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--color-text-secondary)}
+.leg-dot{width:16px;height:16px;border-radius:3px;flex-shrink:0}
+.table-wrap{overflow:auto;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);max-height:660px;position:relative}
+table{border-collapse:collapse;font-size:13px;width:max-content}
 th,td{border-bottom:0.5px solid var(--color-border-tertiary)}
-th{background:var(--color-background-secondary);color:var(--color-text-secondary);font-weight:500;padding:4px 3px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
-th.col-name{text-align:left;padding-left:8px;min-width:62px;position:sticky;left:0;z-index:3;background:var(--color-background-secondary)}
-th.grp{border-left:0.5px solid var(--color-border-secondary);font-size:10px;background:var(--color-background-secondary)}
-td{padding:2px 3px;text-align:center}
-td.col-name{text-align:left;padding-left:8px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--color-background-primary);z-index:1;border-right:0.5px solid var(--color-border-secondary);font-size:12px}
+th{background:var(--color-background-primary);color:var(--color-text-secondary);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
+th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--color-background-primary);border-right:2px solid var(--color-border-secondary)}
+th.sep-left{border-left:2px solid var(--color-border-secondary)}
+th.sep-left-sm{border-left:1px solid var(--color-border-secondary)}
+td{padding:3px 4px;text-align:center}
+td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--color-background-primary);z-index:1;border-right:2px solid var(--color-border-secondary);font-size:13px}
 tr:hover td{background:var(--color-background-secondary)!important}
 tr:hover td.col-name{background:var(--color-background-secondary)!important}
-.cell{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:3px;font-size:10px;font-weight:500;cursor:pointer}
-.cell:hover{outline:2px solid #185FA5}
+.cell{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer}
+.cell:hover{outline:2px solid #185FA5;outline-offset:1px}
 .cell-D{background:#B5D4F4;color:#0C447C}
 .cell-N{background:#3C3489;color:#CECBF6}
 .cell-HD{background:#9FE1CB;color:#085041}
@@ -37,15 +38,15 @@ tr:hover td.col-name{background:var(--color-background-secondary)!important}
 .cell-off{background:transparent;color:var(--color-text-tertiary)}
 th.sun,td.sun{background:#FEF5F5}
 th.sat,td.sat{background:#F5F8FE}
-.section-header td{background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:11px;font-weight:500;padding:3px 8px}
-.cnt-td{font-size:11px;font-weight:500;text-align:center;padding:2px 4px;border-left:0.5px solid var(--color-border-tertiary)}
-.time-td{font-size:11px;text-align:right;padding:2px 5px;color:var(--color-text-secondary);border-left:0.5px solid var(--color-border-tertiary)}
+.section-header td{background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:12px;font-weight:500;padding:4px 10px;border-top:1.5px solid var(--color-border-secondary);border-bottom:1.5px solid var(--color-border-secondary)}
+.cnt-td{font-size:12px;font-weight:500;text-align:center;padding:3px 5px}
+.time-td{font-size:12px;text-align:right;padding:3px 7px;color:var(--color-text-secondary)}
 .time-td.bold{font-weight:500;color:var(--color-text-primary)}
-.juhyu-input{width:36px;font-size:11px;text-align:center;border:0.5px solid var(--color-border-secondary);border-radius:3px;background:var(--color-background-primary);color:var(--color-text-primary);padding:1px 2px}
-.popup{position:absolute;z-index:200;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;min-width:126px}
-.pop-opt{display:flex;align-items:center;justify-content:center;height:22px;border-radius:3px;font-size:11px;font-weight:500;cursor:pointer;padding:0 4px}
-.pop-opt:hover{outline:2px solid #185FA5}
-.pop-clear{grid-column:1/-1;background:var(--color-background-secondary);color:var(--color-text-tertiary);font-size:11px;text-align:center;border-radius:3px;padding:3px;cursor:pointer}
+.juhyu-input{width:44px;font-size:12px;text-align:center;border:0.5px solid var(--color-border-secondary);border-radius:3px;background:var(--color-background-primary);color:var(--color-text-primary);padding:2px 3px}
+.popup{position:absolute;z-index:300;background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;min-width:150px;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
+.pop-opt{display:flex;align-items:center;justify-content:center;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;padding:0 6px}
+.pop-opt:hover{outline:2px solid #185FA5;outline-offset:1px}
+.pop-clear{grid-column:1/-1;background:var(--color-background-secondary);color:var(--color-text-tertiary);font-size:12px;text-align:center;border-radius:4px;padding:4px;cursor:pointer;border:0.5px solid var(--color-border-tertiary)}
 .pop-clear:hover{color:var(--color-text-secondary)}
 </style>
 
@@ -74,7 +75,7 @@ th.sat,td.sat{background:#F5F8FE}
   <div class="leg"><div class="leg-dot cell-병"></div>병</div>
   <div class="leg"><div class="leg-dot cell-조의"></div>조의</div>
   <div class="leg"><div class="leg-dot cell-결혼"></div>결혼</div>
-  <span style="font-size:11px;color:var(--color-text-tertiary);margin-left:4px">· 셀 클릭으로 변경</span>
+  <span style="font-size:12px;color:var(--color-text-tertiary);margin-left:4px">· 셀 클릭으로 변경 / 같은 셀 다시 클릭하면 닫힘</span>
 </div>
 <div class="table-wrap" id="tableWrap">
 <table id="mainTable">
@@ -147,8 +148,10 @@ const weekdays=[6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0,1];
 const WD=['일','월','화','수','목','금','토'];
 let currentDept='all';
 let activePopup=null;
+let activePopupKey=null;
 
 function cellCls(code){return code&&CODE_COLORS[code]?'cell-'+code:'cell-off'}
+function fmtNum(v){return v%1===0?String(v):v.toFixed(1)}
 
 function calcStats(gi){
   const s=schedules[gi];
@@ -162,29 +165,25 @@ function calcStats(gi){
   return{cnt,dh,nh,ah,sh,ch,total:dh+nh+ah+sh+ch,wd};
 }
 
-function fmtNum(v){return v%1===0?String(v):v.toFixed(1)}
-
 function buildTable(){
   const TIME_COLS=['주간','야간','연차','병가','경조사','총시간','근무일수','주휴수당'];
-
   let r1='<tr>';
   r1+=`<th class="col-name">직원</th>`;
   for(let d=1;d<=31;d++){
     const wd=weekdays[d-1];
     const cls=wd===0?'sun':wd===6?'sat':'';
-    r1+=`<th class="${cls}" style="min-width:24px;line-height:1.2">${d}<br><span style="font-size:9px;font-weight:400;color:var(--color-text-tertiary)">${WD[wd]}</span></th>`;
+    r1+=`<th class="${cls}" style="min-width:32px;line-height:1.3">${d}<br><span style="font-size:10px;font-weight:400;color:var(--color-text-tertiary)">${WD[wd]}</span></th>`;
   }
   CODES.forEach((c,i)=>{
     const col=CNT_COLORS[c]||'var(--color-text-secondary)';
-    const sep=i===0?'border-left:0.5px solid var(--color-border-secondary)':'';
-    r1+=`<th style="font-size:10px;color:${col};min-width:26px;${sep}">${c}</th>`;
+    const cls=i===0?'sep-left':'';
+    r1+=`<th class="${cls}" style="font-size:12px;color:${col};min-width:32px">${c}</th>`;
   });
   TIME_COLS.forEach((label,i)=>{
-    const sep=i===0?'border-left:0.5px solid var(--color-border-secondary)':'';
-    r1+=`<th style="font-size:10px;min-width:${label==='주휴수당'?44:38}px;${sep}">${label}</th>`;
+    const cls=i===0?'sep-left':'';
+    r1+=`<th class="${cls}" style="font-size:12px;min-width:${label==='주휴수당'?52:46}px">${label}</th>`;
   });
   r1+='</tr>';
-
   document.getElementById('thead').innerHTML=r1;
 
   const depts=['시설/사무','의료','본관','신관2층','신관1층'];
@@ -200,20 +199,20 @@ function buildTable(){
       schedules[gi].forEach((code,di)=>{
         const wd=weekdays[di];
         const tcls=wd===0?'sun':wd===6?'sat':'';
-        body+=`<td class="${tcls}"><span class="cell ${cellCls(code)}" data-emp="${gi}" data-day="${di}" onclick="showPopup(event,${gi},${di})">${code||'-'}</span></td>`;
+        body+=`<td class="${tcls}"><span class="cell ${cellCls(code)}" data-emp="${gi}" data-day="${di}" onclick="togglePopup(event,${gi},${di})">${code||'-'}</span></td>`;
       });
       CODES.forEach((c,i)=>{
         const col=CNT_COLORS[c]||'var(--color-text-secondary)';
-        const sep=i===0?'border-left:0.5px solid var(--color-border-secondary)':'';
-        body+=`<td class="cnt-td" style="color:${col};${sep}" id="cnt-${gi}-${c}">${st.cnt[c]||''}</td>`;
+        const bdr=i===0?'border-left:2px solid var(--color-border-secondary)':'';
+        body+=`<td class="cnt-td" style="color:${col};${bdr}" id="cnt-${gi}-${c}">${st.cnt[c]||''}</td>`;
       });
       const times=[st.dh,st.nh,st.ah,st.sh,st.ch,st.total,st.wd];
       times.forEach((v,i)=>{
         const bold=i>=5?' bold':'';
-        const sep=i===0?'border-left:0.5px solid var(--color-border-secondary)':'';
-        body+=`<td class="time-td${bold}" style="${sep}" id="th-${gi}-${i}">${fmtNum(v)}</td>`;
+        const bdr=i===0?'border-left:2px solid var(--color-border-secondary)':'';
+        body+=`<td class="time-td${bold}" style="${bdr}" id="th-${gi}-${i}">${fmtNum(v)}</td>`;
       });
-      body+=`<td class="time-td" style="border-left:0.5px solid var(--color-border-secondary)"><input class="juhyu-input" type="number" min="0" max="10" step="1" value="${juhyuVals[gi]}" onchange="juhyuVals[${gi}]=+this.value"></td>`;
+      body+=`<td class="time-td" style="border-left:2px solid var(--color-border-secondary)"><input class="juhyu-input" type="number" min="0" max="10" step="1" value="${juhyuVals[gi]}" onchange="juhyuVals[${gi}]=+this.value"></td>`;
       body+='</tr>';
     });
   });
@@ -232,14 +231,20 @@ function refreshRow(gi){
   });
 }
 
-function showPopup(e,gi,di){
-  e.stopPropagation();closePopup();
+function togglePopup(e,gi,di){
+  e.stopPropagation();
+  const key=`${gi}-${di}`;
+  if(activePopupKey===key){closePopup();return;}
+  closePopup();
   const cell=e.currentTarget;
   const wrap=document.getElementById('tableWrap');
-  const cr=cell.getBoundingClientRect(),wr=wrap.getBoundingClientRect();
+  const cr=cell.getBoundingClientRect();
+  const wr=wrap.getBoundingClientRect();
+  const top=cr.bottom-wr.top+wrap.scrollTop+4;
+  const left=cr.left-wr.left+wrap.scrollLeft;
   const popup=document.createElement('div');
   popup.className='popup';
-  popup.style.cssText=`position:absolute;top:${cr.bottom-wr.top+wrap.scrollTop+3}px;left:${cr.left-wr.left+wrap.scrollLeft}px`;
+  popup.style.cssText=`position:absolute;top:${top}px;left:${left}px`;
   CODES.forEach(code=>{
     const c=CODE_COLORS[code];
     const opt=document.createElement('div');
@@ -253,12 +258,14 @@ function showPopup(e,gi,di){
   clr.className='pop-clear';clr.textContent='- 비우기';
   clr.onclick=ev=>{ev.stopPropagation();applyCode(gi,di,null);closePopup();};
   popup.appendChild(clr);
-  wrap.style.position='relative';
   wrap.appendChild(popup);
   activePopup=popup;
+  activePopupKey=key;
 }
 
-function closePopup(){if(activePopup){activePopup.remove();activePopup=null;}}
+function closePopup(){
+  if(activePopup){activePopup.remove();activePopup=null;activePopupKey=null;}
+}
 
 function applyCode(gi,di,code){
   schedules[gi][di]=code;
@@ -284,6 +291,8 @@ function applyFilter(){
   });
 }
 
-document.addEventListener('click',e=>{if(activePopup&&!activePopup.contains(e.target))closePopup();});
+document.addEventListener('click',e=>{
+  if(activePopup&&!activePopup.contains(e.target))closePopup();
+});
 buildTable();
 </script>
