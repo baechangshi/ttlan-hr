@@ -1,26 +1,39 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-.wrap{padding:1.5rem;font-family:var(--font-sans)}
-.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--color-border-secondary)}
-.toolbar h2{font-size:18px;font-weight:500;color:var(--color-text-primary);flex:1;min-width:160px}
-.search-box{padding:6px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-primary);color:var(--color-text-primary);width:160px}
-.filter-btn{padding:5px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+:root{
+  --bg:#ffffff;
+  --bg2:#f7f7f5;
+  --bg3:#f0efeb;
+  --text1:#1a1a1a;
+  --text2:#6b6b6b;
+  --text3:#999990;
+  --border1:rgba(0,0,0,0.25);
+  --border2:rgba(0,0,0,0.15);
+  --border3:rgba(0,0,0,0.08);
+  --radius:8px;
+  --radius-lg:12px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg)}
+.wrap{padding:1.5rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1.5px solid var(--border1)}
+.toolbar h2{font-size:18px;font-weight:500;color:var(--text1);flex:1;min-width:160px}
+.search-box{padding:6px 12px;border:1px solid var(--border1);border-radius:var(--radius);font-size:14px;background:var(--bg);color:var(--text1);width:160px}
+.filter-btn{padding:5px 14px;border:1px solid var(--border1);border-radius:var(--radius);font-size:13px;cursor:pointer;background:var(--bg2);color:var(--text2)}
 .filter-btn.active{background:#185FA5;color:#fff;border-color:#185FA5}
-.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;align-items:center;padding-bottom:1.2rem;border-bottom:1px solid var(--color-border-tertiary)}
-.leg{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--color-text-secondary)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;align-items:center;padding-bottom:1.2rem;border-bottom:1px solid var(--border2)}
+.leg{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text2)}
 .leg-dot{width:16px;height:16px;border-radius:3px;flex-shrink:0}
-.table-wrap{overflow:auto;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);max-height:660px;position:relative}
+.table-wrap{overflow:auto;border:1.5px solid var(--border1);border-radius:var(--radius-lg);max-height:660px;position:relative}
 table{border-collapse:collapse;font-size:13px;width:max-content}
-th,td{border-bottom:0.5px solid var(--color-border-tertiary)}
-th{background:var(--color-background-primary);color:var(--color-text-secondary);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
-th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--color-background-primary);border-right:2px solid var(--color-border-secondary)}
-th.sep-left{border-left:2px solid var(--color-border-secondary)}
-th.sep-left-sm{border-left:1px solid var(--color-border-secondary)}
-td{padding:3px 4px;text-align:center}
-td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--color-background-primary);z-index:1;border-right:2px solid var(--color-border-secondary);font-size:13px}
-tr:hover td{background:var(--color-background-secondary)!important}
-tr:hover td.col-name{background:var(--color-background-secondary)!important}
+th,td{border-bottom:1px solid var(--border3)}
+th{background:var(--bg);color:var(--text2);font-weight:500;padding:7px 5px;text-align:center;white-space:nowrap;position:sticky;top:0;z-index:2}
+th.col-name{text-align:left;padding-left:10px;min-width:80px;position:sticky;left:0;z-index:3;background:var(--bg);border-right:2px solid var(--border1)}
+th.sep-left{border-left:2px solid var(--border1)}
+td{padding:3px 4px;text-align:center;background:var(--bg)}
+td.col-name{text-align:left;padding-left:10px;font-weight:500;white-space:nowrap;position:sticky;left:0;background:var(--bg);z-index:1;border-right:2px solid var(--border1);font-size:13px;color:var(--text1)}
+tr:hover td{background:var(--bg2)!important}
+tr:hover td.col-name{background:var(--bg2)!important}
 .cell{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer}
 .cell:hover{outline:2px solid #185FA5;outline-offset:1px}
 .cell-D{background:#B5D4F4;color:#0C447C}
@@ -35,19 +48,19 @@ tr:hover td.col-name{background:var(--color-background-secondary)!important}
 .cell-병{background:#F7C1C1;color:#501313}
 .cell-조의{background:#D3D1C7;color:#2C2C2A}
 .cell-결혼{background:#EEEDFE;color:#26215C}
-.cell-off{background:transparent;color:var(--color-text-tertiary)}
+.cell-off{background:transparent;color:var(--text3)}
 th.sun,td.sun{background:#FEF5F5}
 th.sat,td.sat{background:#F5F8FE}
-.section-header td{background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:12px;font-weight:500;padding:4px 10px;border-top:1.5px solid var(--color-border-secondary);border-bottom:1.5px solid var(--color-border-secondary)}
+.section-header td{background:var(--bg2)!important;color:var(--text2);font-size:12px;font-weight:500;padding:5px 10px;border-top:2px solid var(--border1);border-bottom:2px solid var(--border1)}
 .cnt-td{font-size:12px;font-weight:500;text-align:center;padding:3px 5px}
-.time-td{font-size:12px;text-align:right;padding:3px 7px;color:var(--color-text-secondary)}
-.time-td.bold{font-weight:500;color:var(--color-text-primary)}
-.juhyu-input{width:44px;font-size:12px;text-align:center;border:0.5px solid var(--color-border-secondary);border-radius:3px;background:var(--color-background-primary);color:var(--color-text-primary);padding:2px 3px}
-.popup{position:absolute;z-index:300;background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;min-width:150px;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
+.time-td{font-size:12px;text-align:right;padding:3px 7px;color:var(--text2)}
+.time-td.bold{font-weight:500;color:var(--text1)}
+.juhyu-input{width:44px;font-size:12px;text-align:center;border:1px solid var(--border1);border-radius:3px;background:var(--bg);color:var(--text1);padding:2px 3px}
+.popup{position:absolute;z-index:300;background:var(--bg);border:1.5px solid var(--border1);border-radius:var(--radius);padding:7px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;min-width:150px;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
 .pop-opt{display:flex;align-items:center;justify-content:center;height:28px;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;padding:0 6px}
 .pop-opt:hover{outline:2px solid #185FA5;outline-offset:1px}
-.pop-clear{grid-column:1/-1;background:var(--color-background-secondary);color:var(--color-text-tertiary);font-size:12px;text-align:center;border-radius:4px;padding:4px;cursor:pointer;border:0.5px solid var(--color-border-tertiary)}
-.pop-clear:hover{color:var(--color-text-secondary)}
+.pop-clear{grid-column:1/-1;background:var(--bg2);color:var(--text3);font-size:12px;text-align:center;border-radius:4px;padding:4px;cursor:pointer;border:1px solid var(--border2)}
+.pop-clear:hover{color:var(--text2)}
 </style>
 
 <div class="wrap">
@@ -75,7 +88,7 @@ th.sat,td.sat{background:#F5F8FE}
   <div class="leg"><div class="leg-dot cell-병"></div>병</div>
   <div class="leg"><div class="leg-dot cell-조의"></div>조의</div>
   <div class="leg"><div class="leg-dot cell-결혼"></div>결혼</div>
-  <span style="font-size:12px;color:var(--color-text-tertiary);margin-left:4px">· 셀 클릭으로 변경 / 같은 셀 다시 클릭하면 닫힘</span>
+  <span style="font-size:12px;color:var(--text3);margin-left:4px">· 셀 클릭으로 변경 / 같은 셀 다시 클릭하면 닫힘</span>
 </div>
 <div class="table-wrap" id="tableWrap">
 <table id="mainTable">
@@ -172,16 +185,16 @@ function buildTable(){
   for(let d=1;d<=31;d++){
     const wd=weekdays[d-1];
     const cls=wd===0?'sun':wd===6?'sat':'';
-    r1+=`<th class="${cls}" style="min-width:32px;line-height:1.3">${d}<br><span style="font-size:10px;font-weight:400;color:var(--color-text-tertiary)">${WD[wd]}</span></th>`;
+    r1+=`<th class="${cls}" style="min-width:32px;line-height:1.3">${d}<br><span style="font-size:10px;font-weight:400;color:#999">${WD[wd]}</span></th>`;
   }
   CODES.forEach((c,i)=>{
-    const col=CNT_COLORS[c]||'var(--color-text-secondary)';
-    const cls=i===0?'sep-left':'';
-    r1+=`<th class="${cls}" style="font-size:12px;color:${col};min-width:32px">${c}</th>`;
+    const col=CNT_COLORS[c]||'#6b6b6b';
+    const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
+    r1+=`<th style="font-size:12px;color:${col};min-width:32px;${bdr}">${c}</th>`;
   });
   TIME_COLS.forEach((label,i)=>{
-    const cls=i===0?'sep-left':'';
-    r1+=`<th class="${cls}" style="font-size:12px;min-width:${label==='주휴수당'?52:46}px">${label}</th>`;
+    const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
+    r1+=`<th style="font-size:12px;min-width:${label==='주휴수당'?52:46}px;${bdr}">${label}</th>`;
   });
   r1+='</tr>';
   document.getElementById('thead').innerHTML=r1;
@@ -202,17 +215,17 @@ function buildTable(){
         body+=`<td class="${tcls}"><span class="cell ${cellCls(code)}" data-emp="${gi}" data-day="${di}" onclick="togglePopup(event,${gi},${di})">${code||'-'}</span></td>`;
       });
       CODES.forEach((c,i)=>{
-        const col=CNT_COLORS[c]||'var(--color-text-secondary)';
-        const bdr=i===0?'border-left:2px solid var(--color-border-secondary)':'';
+        const col=CNT_COLORS[c]||'#6b6b6b';
+        const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
         body+=`<td class="cnt-td" style="color:${col};${bdr}" id="cnt-${gi}-${c}">${st.cnt[c]||''}</td>`;
       });
       const times=[st.dh,st.nh,st.ah,st.sh,st.ch,st.total,st.wd];
       times.forEach((v,i)=>{
         const bold=i>=5?' bold':'';
-        const bdr=i===0?'border-left:2px solid var(--color-border-secondary)':'';
+        const bdr=i===0?'border-left:2px solid rgba(0,0,0,0.25)':'';
         body+=`<td class="time-td${bold}" style="${bdr}" id="th-${gi}-${i}">${fmtNum(v)}</td>`;
       });
-      body+=`<td class="time-td" style="border-left:2px solid var(--color-border-secondary)"><input class="juhyu-input" type="number" min="0" max="10" step="1" value="${juhyuVals[gi]}" onchange="juhyuVals[${gi}]=+this.value"></td>`;
+      body+=`<td class="time-td" style="border-left:2px solid rgba(0,0,0,0.25)"><input class="juhyu-input" type="number" min="0" max="10" step="1" value="${juhyuVals[gi]}" onchange="juhyuVals[${gi}]=+this.value"></td>`;
       body+='</tr>';
     });
   });
